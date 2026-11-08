@@ -130,3 +130,9 @@ textarea.textarea:focus{outline:0;border-color:var(--border-focus);box-shadow:va
 .post-body th,.post-body td{border-bottom:1px solid var(--border-subtle);padding:8px 10px;text-align:left}
 .post-body hr{border:0;border-top:1px solid var(--border-subtle);width:100%}
 .post-body span,.post-body p,.post-body li,.post-body a{font-family:inherit !important}
+
+/* Sticky top menu (desktop and tablet). On phones the menu wraps to several rows, so it scrolls away. */
+@media (min-width:641px){
+  .page > header{position:sticky;top:0;z-index:40}
+  html{scroll-padding-top:88px}
+}
