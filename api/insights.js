@@ -205,10 +205,40 @@ function send(res, status, html, cache) {
   res.end(html);
 }
 
+// /insights?debug=1 : shows what HubSpot answers (never shows the token).
+async function debug(res) {
+  const out = { tokenSet: !!process.env.HUBSPOT_ACCESS_TOKEN, blogIdFilter: process.env.HUBSPOT_BLOG_ID || null, calls: {} };
+  if (out.tokenSet) {
+    for (const [name, p] of [["posts (all states)", "/posts?limit=20&sort=-updated"], ["tags", "/tags?limit=20"], ["authors", "/authors?limit=20"]]) {
+      try {
+        const r = await fetch(API + p, { headers: { Authorization: "Bearer " + process.env.HUBSPOT_ACCESS_TOKEN } });
+        const text = await r.text();
+        let info = { status: r.status };
+        if (r.ok) {
+          const j = JSON.parse(text);
+          info.count = (j.results || []).length;
+          if (name.startsWith("posts")) info.posts = (j.results || []).map((x) => ({ title: x.htmlTitle || x.name, state: x.state, currentState: x.currentState, publishDate: x.publishDate, slug: x.slug, blogId: x.contentGroupId }));
+          if (name === "tags") info.names = (j.results || []).map((x) => x.name);
+        } else {
+          info.error = text.slice(0, 400);
+        }
+        out.calls[name] = info;
+      } catch (e) {
+        out.calls[name] = { error: String(e && e.message) };
+      }
+    }
+  }
+  res.statusCode = 200;
+  res.setHeader("Content-Type", "application/json; charset=utf-8");
+  res.setHeader("Cache-Control", "no-store");
+  res.end(JSON.stringify(out, null, 2));
+}
+
 module.exports = async (req, res) => {
   const url = new URL(req.url, "http://localhost");
+  if (url.searchParams.get("debug") === "1") return debug(res);
   const slug = (url.searchParams.get("slug") || "").replace(/[^a-z0-9_-]/gi, "");
-  const FRESH = "public, s-maxage=300, stale-while-revalidate=86400";
+  const FRESH = "public, s-maxage=300, stale-while-revalidate=60";
 
   let posts = [];
   if (process.env.HUBSPOT_ACCESS_TOKEN) {
