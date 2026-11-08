@@ -9,7 +9,7 @@
       var cat = b.getAttribute("data-filter");
       btns.forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
       var all = cat === "All";
-      featured.hidden = !all;
+      if (featured) featured.hidden = !all;
       var shown = 0;
       cards.forEach(function (c) {
         var show = all ? !c.hasAttribute("data-featured") : c.getAttribute("data-cat") === cat;

@@ -113,3 +113,20 @@ textarea.textarea:focus{outline:0;border-color:var(--border-focus);box-shadow:va
   section,footer,.pad-x{padding-left:16px !important;padding-right:16px !important}
   .chat-panel{width:calc(100vw - 32px) !important}
 }
+
+/* Blog post body (HTML from HubSpot) */
+.post-body{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:24px;font-size:18px;line-height:1.7;color:var(--text-body)}
+.post-body > *{margin:0}
+.post-body h2{margin:24px 0 0;font-size:32px;line-height:1.2;letter-spacing:-0.015em;font-weight:400;color:var(--text-strong)}
+.post-body h3{margin:16px 0 0;font-size:24px;line-height:1.25;font-weight:400;color:var(--text-strong)}
+.post-body h4{margin:8px 0 0;font-size:20px;font-weight:400;color:var(--text-strong)}
+.post-body strong,.post-body b{font-weight:400;color:var(--text-strong)}
+.post-body ul,.post-body ol{padding-left:24px;display:flex;flex-direction:column;gap:8px}
+.post-body blockquote{position:relative;margin:16px 0;background:var(--purple-500);color:#fff;border-radius:14px;padding:32px 36px;font-size:26px;line-height:1.35;letter-spacing:-0.01em}
+.post-body blockquote p{margin:0}
+.post-body img{max-width:100%;height:auto;border-radius:16px}
+.post-body figure{margin:0}
+.post-body table{border-collapse:collapse;width:100%;font-size:16px}
+.post-body th,.post-body td{border-bottom:1px solid var(--border-subtle);padding:8px 10px;text-align:left}
+.post-body hr{border:0;border-top:1px solid var(--border-subtle);width:100%}
+.post-body span,.post-body p,.post-body li,.post-body a{font-family:inherit !important}

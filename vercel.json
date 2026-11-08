@@ -1,6 +1,13 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    { "source": "/insights", "destination": "/api/insights" },
+    { "source": "/insights/:slug", "destination": "/api/insights?slug=:slug" }
+  ],
+  "functions": {
+    "api/insights.js": { "includeFiles": "templates/**" }
+  },
   "headers": [
     {
       "source": "/assets/(.*)",
