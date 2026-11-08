@@ -1,17 +1,37 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [
-    { "source": "/insights", "destination": "/api/insights" },
-    { "source": "/insights/:slug", "destination": "/api/insights?slug=:slug" }
-  ],
   "functions": {
-    "api/insights.js": { "includeFiles": "templates/**" }
+    "api/insights.js": {
+      "includeFiles": "templates/**"
+    }
   },
   "headers": [
     {
       "source": "/assets/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/insights",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/insights/:path*",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/api/insights",
+      "destination": "/",
+      "permanent": false
     }
   ]
 }

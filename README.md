@@ -8,7 +8,20 @@ Website for SeaChange, deployed on Vercel.
   using the page designs in `templates/list.html` and `templates/post.html`
 - `assets/` – styles, fonts, images and scripts
 
-## Blog (HubSpot)
+## Blog (HubSpot) – paused
+
+The Insights section is switched off for now: `vercel.json` redirects `/insights` to the home page
+and the menu links were removed. To switch it back on, replace the `redirects` in `vercel.json` with:
+
+```json
+"rewrites": [
+  { "source": "/insights", "destination": "/api/insights" },
+  { "source": "/insights/:slug", "destination": "/api/insights?slug=:slug" }
+]
+```
+
+and add the "Insights" links back to the menus (home, thank-you) and the home footer.
+
 
 Set these environment variables in Vercel (Settings → Environment Variables):
 
