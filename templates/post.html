@@ -12,8 +12,8 @@
 <meta property="og:type" content="article">
 <link rel="canonical" href="%%CANONICAL%%">
 <link rel="preload" href="/assets/ds/fonts/BaticaSans-Regular.otf" as="font" type="font/otf" crossorigin>
-<link rel="stylesheet" href="/assets/ds/tokens.css">
-<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="stylesheet" href="/assets/ds/tokens.css?v=1794170321">
+<link rel="stylesheet" href="/assets/css/site.css?v=1794170321">
 </head>
 <body>
 <div class="page">
@@ -22,7 +22,8 @@
 <header style="border-bottom: 1px solid var(--border-subtle); background: var(--surface-page);">
 <nav aria-label="Main" style="max-width: 1280px; margin: 0 auto; padding: 16px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
 <a href="/" aria-label="SeaChange home" style="display: flex; align-items: center;"><img src="/assets/img/logo-seachange.png" alt="SeaChange" style="display: block; height: 32px; width: auto; object-fit: contain;"></a>
-<div class="nav-links" style="display: flex; flex-wrap: wrap; align-items: center; gap: 28px; font-size: 15px;">
+<button type="button" class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="nav-links"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path class="i-open" d="M4 7h16M4 12h16M4 17h16"/><path class="i-close" d="M6 6l12 12M18 6L6 18"/></svg></button>
+<div class="nav-links" id="nav-links" style="display: flex; flex-wrap: wrap; align-items: center; gap: 28px; font-size: 15px;">
 <a href="/#services" style="color: var(--text-strong);">Services</a>
 <a href="/#how" style="color: var(--text-strong);">How we work</a>
 <a href="/insights" aria-current="page" style="color: var(--text-accent); border-bottom: 2px solid var(--red-500); padding-bottom: 4px;">Insights</a>
@@ -82,5 +83,6 @@
 </footer>
 
 </div>
+<script src="/assets/js/menu.js?v=1794170321" defer></script>
 </body>
 </html>
