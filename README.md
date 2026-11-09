@@ -39,6 +39,12 @@ brand illustration is shown. Without a token, or if HubSpot fails, the original 
 https://pulse-sc-c201.vercel.app, built with base path `/demo-pulse`). It is reachable by direct link
 only: nothing on this site links to it, and the app tells search engines not to index it.
 
+## Email assets
+
+`email/` holds images used in email signatures and templates (for example
+`https://www.seachange.agency/email/seachange-mark.png`). Keep these URLs stable: emails already
+sent point at them.
+
 ## Forms
 
 Contact and newsletter forms submit to HubSpot (portal 146401104).
