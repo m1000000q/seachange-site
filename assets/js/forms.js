@@ -34,7 +34,7 @@
       if (busy) return;
       busy = true;
       var original = label.textContent;
-      label.textContent = "Signing up…";
+      label.textContent = document.documentElement.lang === "es" ? "Suscribiendo…" : "Signing up…";
       if (err) err.hidden = true;
       var email = new FormData(form).get("email") || "";
       hsSubmit(HS.news, [{ name: "email", value: email }])

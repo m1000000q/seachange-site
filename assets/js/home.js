@@ -1,5 +1,9 @@
 /* Home page interactions: hero example answers, services explorer, contact form, chat widget. */
 (function () {
+  // Language pack: the Spanish page loads home-es.js first, which sets window.SC_HOME.
+  var L = window.SC_HOME || {};
+  var UI = L.ui || {};
+  function t(key, en) { return UI[key] || en; }
   function el(tag, attrs, html) {
     var n = document.createElement(tag);
     for (var k in attrs || {}) n.setAttribute(k, attrs[k]);
@@ -32,7 +36,7 @@
   }
 
   /* ---------- Hero example answers ---------- */
-  var QA = [
+  var QA = L.QA || [
     { q: "Where's my pipeline stuck?", a: "Most of it is sitting at Proposal. 14 deals worth £212k haven't moved in over 30 days. Next step: review the 9 stalled deals with Sam and Priya.", s: ["Zoho CRM", "Pipeline report"] },
     { q: "What's driving growth this quarter?", a: "Repeat customers. Revenue from existing accounts is up on last quarter while new-customer revenue is flat. Next step: look at which accounts expanded and why.", s: ["Finance system", "Zoho CRM"] },
     { q: "Which customers are most valuable?", a: "Your top 20 accounts bring in over half of revenue, and most came through referrals. Next step: build a referral ask into your account reviews.", s: ["Finance system", "Zoho CRM"] }
@@ -46,7 +50,7 @@
   });
 
   /* ---------- Services explorer ---------- */
-    var S = [
+    var S = L.S || [
       { num: "01", name: "Foundations", icon: "layout-grid", kicker: "Foundations", title: "Giving every number a meaning.", body: "We start by understanding how your business really works, so every dashboard answers the questions that matter.",
         groups: [{ h: "What we map", items: [
           { t: "ICP", d: "The customers worth winning, defined with your own data" },
@@ -109,7 +113,7 @@
             { t: "Aligned teams", d: "Sales and marketing working to shared goals, with feedback both ways" },
             { t: "Outreach and discovery", d: "Choosing outreach tools and shaping better discovery calls" }] }] }
     ];
-    var POP = {
+    var POP = L.POP || {
       "Foundations": { sub: "Strategy · Where every engagement starts", chips: ["Sales", "Marketing", "Leadership"], steps: [1, 0, 0, 0], rows: [["Best for", "Teams that want every number to mean something"], ["You get", "ICP, buyers, customer journey and market analysis"], ["Built from", "Your own CRM and finance data"]] },
       "CRM audit & maintenance": { sub: "CRM · Diagnosis and hygiene", chips: ["Audit", "Clean-up", "Validation"], steps: [1, 1, 0, 0], rows: [["Best for", "CRMs nobody fully trusts"], ["You get", "Clean records, agreed definitions, routines your team keeps up"], ["Result", "Leaner: CRM requirements and costs resized"]] },
       "Revenue dashboard": { sub: "Dashboards · Lead to recurring revenue", chips: ["CRM", "Finance", "Marketing"], steps: [0, 1, 1, 0], rows: [["Best for", "Leaders who want the whole funnel in one place"], ["Tracks", "Leads, opportunities, new customers, recurring revenue"], ["Joins up", "CRM, finance and marketing systems"]] },
@@ -119,8 +123,8 @@
       "Custom projects": { sub: "Beyond sales and marketing", chips: ["Finance", "Operations", "People", "Client service"], steps: [1, 1, 1, 1], rows: [["Best for", "Any team with data and a question behind it"], ["Starts with", "The same discovery: how your business really works"]] },
       "Fractional marketing": { sub: "People · Marketing support when you need it", chips: ["Flexible", "Grounded in your data"], steps: [1, 0, 0, 1], rows: [["Best for", "Launches, busy periods and teams between hires"], ["You get", "Campaigns, go-to-market, sales enablement, content"], ["How", "Scale up for a launch, back down when steady"]] }
     };
-  var STEP_NAMES = ["Understand", "Connect", "Ask", "Decide"];
-  var INTMAP = { "Foundations": "Foundations", "CRM audit & maintenance": "CRM audit", "Revenue dashboard": "Revenue dashboard", "Talk to your data": "Talk to your data", "Automation & custom tools": "Automation", "Marketing engine": "Marketing engine", "Custom projects": "Not sure yet", "Fractional marketing": "Fractional marketing" };
+  var STEP_NAMES = L.STEP_NAMES || ["Understand", "Connect", "Ask", "Decide"];
+  var INTMAP = L.INTMAP || { "Foundations": "Foundations", "CRM audit & maintenance": "CRM audit", "Revenue dashboard": "Revenue dashboard", "Talk to your data": "Talk to your data", "Automation & custom tools": "Automation", "Marketing engine": "Marketing engine", "Custom projects": "Not sure yet", "Fractional marketing": "Fractional marketing" };
   var cur = 3;
   var grid = document.getElementById("svc-grid");
   var tiles = [];
@@ -133,7 +137,7 @@
     var btn = el("button", { "class": "svc-btn", type: "button", "aria-pressed": "false", "aria-describedby": popId },
       '<img alt="" style="width: 28px; height: 28px; object-fit: contain;"><span class="svc-name">' + esc(s.name) + "</span>");
     tile.appendChild(btn);
-    tile.appendChild(el("span", { "class": "svc-more" }, "What's included →"));
+    tile.appendChild(el("span", { "class": "svc-more" }, t("more", "What's included →")));
     btn.addEventListener("click", function () { select(i); });
 
     var side = (i % 4 === 3 ? "l4" : "r4") + " " + (i % 2 === 1 ? "l2" : "r2");
@@ -147,9 +151,9 @@
     var pop = el("div", { "class": "svc-pop " + side, role: "tooltip", id: popId },
       '<div style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 18px; line-height: 1.25; color: var(--text-strong);">' + esc(s.name) + '</span><span style="font-size: 13px; color: var(--text-muted);">' + esc(p.sub) + "</span></div>" +
       '<div style="display: flex; flex-wrap: wrap; gap: 6px;">' + chips + "</div>" +
-      '<div style="display: flex; flex-direction: column; gap: 8px;"><span style="font-size: 12px; color: var(--text-muted);">Where it sits in how we work</span><div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px;">' + steps + "</div></div>" +
+      '<div style="display: flex; flex-direction: column; gap: 8px;"><span style="font-size: 12px; color: var(--text-muted);">' + t("where", "Where it sits in how we work") + '</span><div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px;">' + steps + "</div></div>" +
       '<div style="display: flex; flex-direction: column; border-top: 1px solid rgba(34,30,27,0.10); padding-top: 10px;">' + rows + "</div>" +
-      '<a class="cta" href="#contact" style="position: relative; display: inline-flex; align-self: flex-start; margin: 4px 0 2px;"><span aria-hidden="true" style="position: absolute; inset: -4px 3px 3px -3px; border: 1.5px solid var(--purple-300); border-radius: 12px; transform: rotate(-0.6deg); pointer-events: none;"></span><span class="cta-face" style="position: relative; display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; background: var(--purple-500); color: #FFFFFF; border-radius: 10px; font-size: 15px;">Start with this →</span></a>');
+      '<a class="cta" href="#contact" style="position: relative; display: inline-flex; align-self: flex-start; margin: 4px 0 2px;"><span aria-hidden="true" style="position: absolute; inset: -4px 3px 3px -3px; border: 1.5px solid var(--purple-300); border-radius: 12px; transform: rotate(-0.6deg); pointer-events: none;"></span><span class="cta-face" style="position: relative; display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; background: var(--purple-500); color: #FFFFFF; border-radius: 10px; font-size: 15px;">' + t("startWith", "Start with this →") + '</span></a>');
     pop.querySelector("a").addEventListener("click", function () { preselect(s.name); });
     wrap.appendChild(tile);
     wrap.appendChild(pop);
@@ -201,18 +205,18 @@
     var fd = new FormData(form);
     var picked = [];
     interestBtns.forEach(function (b) { if (b.getAttribute("aria-pressed") === "true") picked.push(b.getAttribute("data-interest")); });
-    var msg = (picked.length ? "Interested in: " + picked.join(", ") + "\n\n" : "") + "Question: " + (fd.get("question") || "");
+    var msg = (L.lang ? "Site language: " + L.lang + "\n\n" : "") + (picked.length ? "Interested in: " + picked.join(", ") + "\n\n" : "") + "Question: " + (fd.get("question") || "");
     var fields = ["firstname", "lastname", "email", "company", "phone"].map(function (n) { return { name: n, value: fd.get(n) || "" }; })
       .concat([{ name: "message", value: msg }])
       .filter(function (f) { return f.value !== ""; });
     sending = true;
     sendErr.hidden = true;
-    sendLabel.textContent = "Sending…";
+    sendLabel.textContent = t("sending", "Sending…");
     window.SeaChangeForms.submit(window.SeaChangeForms.HS.contact, fields)
-      .then(function () { window.location.href = "/thank-you"; })
+      .then(function () { window.location.href = t("thanksUrl", "/thank-you"); })
       .catch(function () {
         sending = false;
-        sendLabel.textContent = "Send →";
+        sendLabel.textContent = t("send", "Send →");
         sendErr.hidden = false;
       });
   });
@@ -226,7 +230,7 @@
     panel.hidden = !open;
     panel.style.display = open ? "flex" : "";
     toggle.setAttribute("aria-expanded", open ? "true" : "false");
-    chatLabel.textContent = open ? "Close" : "Ask SeaChange";
+    chatLabel.textContent = open ? t("close", "Close") : t("ask", "Ask SeaChange");
     if (open) panel.querySelector("input").focus();
   }
   toggle.addEventListener("click", function () { setChat(panel.hidden); });
@@ -234,6 +238,7 @@
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !panel.hidden) { setChat(false); toggle.focus(); } });
 
   function reply(text) {
+    if (L.reply) return L.reply(text);
     var t = (text || "").toLowerCase();
     if (/price|cost|how much|fee/.test(t)) return { text: "It depends on the size of the pilot. Tell us your question in the form at the bottom of the page and we'll send you a proposal.", sources: ["Starting a pilot"] };
     if (/pilot|start|begin/.test(t)) return { text: "A pilot has three steps: pick the one question your team can't answer quickly today, we connect the data behind it, then we review the answer together and decide what to build next.", sources: ["Starting a pilot"] };
@@ -246,7 +251,7 @@
     log.appendChild(el("div", { "class": "msg-user" }, "<div>" + esc(text) + "</div>"));
     log.appendChild(el("div", { "class": "msg-bot" },
       '<div class="msg-avatar"><img src="/assets/img/mark.png" alt=""></div><div class="msg-body" style="font-size: 15px;"><span>' + esc(r.text) + "</span>" +
-      (r.sources.length ? '<div class="sources">Sources:' + r.sources.map(function (s) { return "<span>" + esc(s) + "</span>"; }).join("") + "</div>" : "") + "</div>"));
+      (r.sources.length ? '<div class="sources">' + t("sources", "Sources:") + r.sources.map(function (s) { return "<span>" + esc(s) + "</span>"; }).join("") + "</div>" : "") + "</div>"));
     log.scrollTop = log.scrollHeight;
   });
 })();

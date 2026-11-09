@@ -2,7 +2,7 @@
 
 Website for SeaChange, deployed on Vercel.
 
-- `index.html` – home page
+- `index.html` – home page (English); `es/index.html` – Spanish (`/es`)
 - `thank-you.html` – shown after the contact form is sent (`/thank-you`)
 - `/insights` and `/insights/<slug>` – the blog, rendered by `api/insights.js` from the HubSpot blog
   using the page designs in `templates/list.html` and `templates/post.html`
@@ -38,6 +38,13 @@ brand illustration is shown. Without a token, or if HubSpot fails, the original 
 `/demo-pulse` is proxied to the Pulse app (`m1000000q/pulse`, production at
 https://pulse-sc-c201.vercel.app, built with base path `/demo-pulse`). It is reachable by direct link
 only: nothing on this site links to it, and the app tells search engines not to index it.
+
+## Spanish version
+
+`/es` and `/es/gracias` are generated from the English pages: edit `index.html` / `thank-you.html`,
+add any new text to `tools/es/dict.py`, then run `python3 tools/es/build.py`. The interactive parts of
+the home page (services, example questions, chat) take their Spanish text from `assets/js/home-es.js`.
+Neutral Spanish, informal "tú".
 
 ## Email assets
 
