@@ -33,5 +33,15 @@
       "destination": "/",
       "permanent": false
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/demo-pulse",
+      "destination": "https://pulse-sc-c201.vercel.app/demo-pulse"
+    },
+    {
+      "source": "/demo-pulse/:path*",
+      "destination": "https://pulse-sc-c201.vercel.app/demo-pulse/:path*"
+    }
   ]
 }

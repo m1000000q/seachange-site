@@ -33,6 +33,12 @@ Published posts show up within about 5 minutes. The first HubSpot tag of a post 
 brand illustration is shown. Without a token, or if HubSpot fails, the original design pages in
 `templates/fallback-*.html` are served.
 
+## Pulse demo (/demo-pulse)
+
+`/demo-pulse` is proxied to the Pulse app (`m1000000q/pulse`, production at
+https://pulse-sc-c201.vercel.app, built with base path `/demo-pulse`). It is reachable by direct link
+only: nothing on this site links to it, and the app tells search engines not to index it.
+
 ## Forms
 
 Contact and newsletter forms submit to HubSpot (portal 146401104).
